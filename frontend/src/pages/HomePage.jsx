@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import RateLimitedUI from "../components/RateLimitedUI";
 import NoteCard from "../components/NoteCard";
-import axiosInstance from "../lib/axios";
+import { useAxiosInstance } from "../lib/axios";
 import NotesNotFound from "../components/NotesNotFound";
 
 const HomePage = () => {
@@ -12,16 +12,19 @@ const HomePage = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Axios instance with auth token
+  const axiosInstance = useAxiosInstance();
+
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const res = await axiosInstance.get("/notes");
-
         setNotes(res.data);
         setIsRateLimited(false);
       } catch (error) {
-        console.log("Error fetching notes");
-        if (error.response.status === 429) {
+        console.error("Error fetching notes", error);
+        // Optional chain the error response to avoid undefined errors
+        if (error.response?.status === 429) {
           setIsRateLimited(true);
         } else {
           toast.error("Failed to load notes");

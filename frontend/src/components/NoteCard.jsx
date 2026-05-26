@@ -2,10 +2,12 @@ import { PenSquareIcon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router";
 
 import { formatDate } from "../lib/utils";
-import axiosInstance from "../lib/axios";
+import { useAxiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 
 const NoteCard = ({ note, setNotes }) => {
+  const axiosInstance = useAxiosInstance();
+
   const handleDelete = async (e, id) => {
     // Stop the navigation behavior
     e.preventDefault();
