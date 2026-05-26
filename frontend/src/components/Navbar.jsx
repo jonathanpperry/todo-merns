@@ -1,5 +1,11 @@
 import { Link } from "react-router";
 import { PlusIcon } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/clerk-react";
 
 const Navbar = () => {
   return (
@@ -11,10 +17,19 @@ const Navbar = () => {
           </h1>
 
           <div className="flex items-center gap-4">
-            <Link to={"/create"} className="btn btn-primary">
-              <PlusIcon className="size-5" />
-              <span>New Note</span>
-            </Link>
+            <SignedIn>
+              <Link to={"/create"} className="btn btn-primary">
+                <PlusIcon className="size-5" />
+                <span>New Note</span>
+              </Link>
+              <UserButton />
+            </SignedIn>
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="btn btn-primary">Sign In</button>
+              </SignInButton>
+            </SignedOut>
           </div>
         </div>
       </div>

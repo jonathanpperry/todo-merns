@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// 1 - create a schema
 const noteSchema = new mongoose.Schema(
   {
     title: {
@@ -12,15 +11,13 @@ const noteSchema = new mongoose.Schema(
       required: true,
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
   },
-  { timestamps: true }, // createdAt, updatedAt
+  { timestamps: true },
 );
 
-// 2 - Model based off that schema
 const Note = mongoose.model("Task", noteSchema);
 
 export default Note;
