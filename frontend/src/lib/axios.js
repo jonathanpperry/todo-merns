@@ -2,7 +2,9 @@ import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
 
 const BASE_URL =
-  import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "/api";
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5001/api"
+    : import.meta.env.VITE_API_URL;
 
 export const useAxiosInstance = () => {
   const { getToken } = useAuth();
